@@ -1,6 +1,57 @@
 # Multi-Agent Research Assistant
 
-A production-quality multi-agent system built with [LangGraph](https://github.com/langchain-ai/langgraph) that automates research, writing, and editorial review through coordinated AI agents.
+<p align="center">
+  <strong>LangGraph-based multi-agent research system with supervisor routing, web research, writing, review, iterative refinement, and human-in-the-loop support.</strong>
+</p>
+
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Python-3.12-3776AB" alt="Python"></a>
+  <a href="#"><img src="https://img.shields.io/badge/LangGraph-Orchestration-6F42C1" alt="LangGraph"></a>
+  <a href="#"><img src="https://img.shields.io/badge/OpenAI-Provider-412991" alt="OpenAI"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Anthropic-Provider-D97757" alt="Anthropic"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Tavily-Search-111827" alt="Tavily"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Docker-Ready-2496ED" alt="Docker"></a>
+  <a href="#"><img src="https://img.shields.io/badge/License-MIT-2EA44F" alt="License"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Talha-Techie">GitHub Profile</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#security">Security</a>
+</p>
+
+---
+
+## Overview
+
+**Multi-Agent Research Assistant** coordinates specialized AI agents for research, writing, and editorial review using LangGraph. A supervisor inspects shared state and routes work to the researcher, writer, or reviewer until the task reaches an accepted result.
+
+The project demonstrates supervisor routing, conditional graph edges, external tool use, multi-provider LLM configuration, human-in-the-loop interruption, and an iterative writer/reviewer refinement loop.
+
+### Business / Engineering Value
+
+- Supervisor-driven dynamic routing instead of a fixed pipeline.
+- Researcher agent with Tavily web search and summarization tools.
+- Writer agent for structured report generation and revision.
+- Reviewer agent with ACCEPT/REVISE evaluation.
+- Up to three revision cycles.
+- OpenAI and Anthropic provider switching via environment configuration.
+- LangGraph human-in-the-loop support using `interrupt_before`.
+
+## Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Orchestration | LangGraph |
+| LLMs | OpenAI / Anthropic |
+| Web search | Tavily |
+| Configuration | python-dotenv + Pydantic |
+| Build | Hatch |
+| Package manager | uv |
+| Deployment | Docker |
+
+---
 
 ## Architecture
 
@@ -44,7 +95,7 @@ flowchart LR
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/langgraph-multi-agent.git
+git clone https://github.com/Talha-Techie/langgraph-multi-agent.git
 cd langgraph-multi-agent
 
 # Set up environment
@@ -149,3 +200,62 @@ langgraph-multi-agent/
 ## License
 
 MIT
+
+---
+
+## Security
+
+For production use, treat uploaded documents, prompts, model outputs, credentials, user data, and tool/API responses as potentially sensitive.
+
+Recommended controls include:
+
+- Keep secrets in environment variables or a dedicated secret manager.
+- Never commit `.env` files, API keys, database passwords, or tokens.
+- Validate and constrain all external inputs before processing.
+- Apply authentication and authorization to production endpoints where appropriate.
+- Use least-privilege access for databases, tools, cloud resources, and service accounts.
+- Enforce HTTPS/TLS at the deployment boundary.
+- Add request limits, timeouts, structured logging, and dependency scanning.
+- Review model/tool outputs before allowing irreversible actions.
+
+> Security, compliance, SSO, RBAC, or enterprise governance capabilities should only be advertised when they are implemented and verified in the deployed environment.
+
+## Production Considerations
+
+Before operating this project in a production environment, consider adding or validating:
+
+- Centralized logs and metrics
+- Health and readiness checks
+- Request tracing and correlation IDs
+- Rate limiting and abuse controls
+- Persistent state and backup strategy
+- CI/CD quality gates
+- Dependency and container vulnerability scanning
+- Model/LLM latency, reliability, and cost monitoring where applicable
+- Horizontal scaling and externalized state where required
+
+## Contributing
+
+Contributions are welcome.
+
+```bash
+git checkout -b feature/your-feature
+git add .
+git commit -m "feat: describe your change"
+git push origin feature/your-feature
+```
+
+When opening a pull request, include the motivation, implementation summary, testing performed, and any API or architecture implications.
+
+## Maintainer
+
+Maintained by **Talha-Techie**.
+
+- GitHub: [github.com/Talha-Techie](https://github.com/Talha-Techie)
+
+
+---
+
+<p align="center">
+  <strong>Designed as a clean, modular, production-oriented AI/ML engineering project.</strong>
+</p>
